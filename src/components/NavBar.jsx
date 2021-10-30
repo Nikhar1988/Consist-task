@@ -1,8 +1,9 @@
 import { Layout, Row, Menu } from 'antd'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
-     
+    const {isAuth, user} = useSelector(state => state.auth);
     return (
         <Layout.Header className="layout" >
             <Row justify="end">
@@ -10,15 +11,13 @@ const NavBar = () => {
                     <Link to="/">
                         <Menu.Item  key='1'> На главную</Menu.Item>  
                     </Link>
-                    <Link to="/report">
+                    {isAuth ? <Link to="/report">
                         <Menu.Item  key='2'> Отчет </Menu.Item>
-                    </Link>
-                    <Link to="/profile">
+                    </Link> : null}
+                    <Link to={isAuth ? "/profile" : "/login" }>
                         <Menu.Item  key='3'> Профиль </Menu.Item>
                     </Link>
-                    <Link to="/login">
-                        <Menu.Item  key='4'> Войти </Menu.Item>
-                    </Link>
+                    
                 </Menu>
             </Row>
         </Layout.Header>
