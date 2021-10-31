@@ -8,7 +8,7 @@ const AppRouter = () => {
 
     return (
         <div>
-            {isAuth ? <Redirect to="/" /> : null};
+            {isAuth ? <Redirect to="/" /> : null}
             <Route path="/profile" component={Profile} />
             <Route path="/" component={MainPage} exact />
             <Route path="/login" component={Login} />

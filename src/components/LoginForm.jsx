@@ -1,31 +1,33 @@
 import { Form, Input, Button } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthActionCreators from '../redux/actions';
 
 const LoginForm  = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const {error, isLoading} = useSelector(state=> state.auth);
     const dispatch = useDispatch();
+    const {error, isLoading} = useSelector(state=> state.auth);
     
     //тестирование ErrorBoundry  
-    const testErrorBoundry =(username) => { 
+    useEffect(()=>{
         if (username === 'boom') {
-            throw new Error('boom');
+            console.log(username)
+            throw new Error(console.error('boom'));
         };
-    };
+    },[username]);
+    
 
-
+    
     const submit = () => {       
         dispatch(AuthActionCreators.login(username, password));
     };
 
     return (
         <Form onFinish= {submit}>
-             {error && <div style={{color:'red'}}>
-                    {error};
-                </div>};
+            {error && <div style={{color:'red'}}>
+                    {error}
+                </div>}
                 <Form.Item
                     label="Логин"
                     name="username"
@@ -36,7 +38,6 @@ const LoginForm  = () => {
                         onChange={(e)=> setUsername(e.target.value)}
                     />
                 </Form.Item>
-
                 <Form.Item
                     label="Пароль"
                     name="password"
@@ -47,13 +48,11 @@ const LoginForm  = () => {
                         type={password} 
                     />
                 </Form.Item>
-
-
                 <Form.Item >
-                    <Button type="primary" htmlType="submit" loading={isLoading} onClick={testErrorBoundry(username)}>
-                    Войти
-                    </Button>
-                </Form.Item>
+                    <Button type="primary" htmlType="submit" loading={isLoading} >
+                      Войти
+                    </Button> 
+                </Form.Item>                
        </Form>
     );
 };
