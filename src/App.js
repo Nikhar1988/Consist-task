@@ -1,6 +1,7 @@
-import { Layout } from 'antd';
+import { Layout, Row } from 'antd';
 import { AppRouter, NavBar } from './components';
-import './App.css';
+
+
 
 
 
@@ -9,7 +10,10 @@ const App = () => {
     <Layout>
       <NavBar />
       <Layout.Content>
-          <AppRouter/>
+        <Row justify="center" align="middle" className="h100">
+          <AppRouter />
+        </Row>
+
       </Layout.Content>
     </Layout>
   );

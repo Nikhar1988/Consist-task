@@ -4,15 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import AuthActionCreators from '../redux/actions';
 
 const LoginForm  = () => {
-    //const {login} = AuthActionCreators;
-    //console.log(login)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const {error, isLoading} = useSelector(state=> state.auth);
     const dispatch = useDispatch();
     
+    //тестирование ErrorBoundry  
+    const testErrorBoundry =(username) => { 
+        if (username === 'boom') {
+            throw new Error('boom');
+        };
+    };
+
+
     const submit = () => {       
-        console.log(username, password)
         dispatch(AuthActionCreators.login(username, password));
     };
 
@@ -22,9 +27,9 @@ const LoginForm  = () => {
                     {error}
                 </div>}
                 <Form.Item
-                    label="Имя пользователя"
+                    label="Логин"
                     name="username"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[{ required: true, message: 'Пожалуйста введите логин!' }]}
                 >
                     <Input 
                         value={username} 
@@ -35,7 +40,7 @@ const LoginForm  = () => {
                 <Form.Item
                     label="Пароль"
                     name="password"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[{ required: true, message: 'Пожалуйста введите пароль!' }]}
                 >
                     <Input 
                         onChange={(e)=> setPassword(e.target.value)}
@@ -45,7 +50,7 @@ const LoginForm  = () => {
 
 
                 <Form.Item >
-                    <Button type="primary" htmlType="submit" loading={isLoading} >
+                    <Button type="primary" htmlType="submit" loading={isLoading} onClick={testErrorBoundry(username)}>
                     Войти
                     </Button>
                 </Form.Item>

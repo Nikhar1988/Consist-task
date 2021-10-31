@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 const Profile = () => {
     return (
-        <div>
-            Ок. Я profile!
-        </div>
+            <h2>Здесь должна содержатся информации о пользователе.</h2> 
     );
 };
 
