@@ -24,7 +24,6 @@ const dataTodo = [
     
 
     return (
-         
         <>
             <h1 style={{textAlign: "center"}}>Список задач</h1>
             <Table dataSource={dataTodo}>

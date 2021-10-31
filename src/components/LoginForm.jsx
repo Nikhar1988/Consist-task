@@ -24,8 +24,8 @@ const LoginForm  = () => {
     return (
         <Form onFinish= {submit}>
              {error && <div style={{color:'red'}}>
-                    {error}
-                </div>}
+                    {error};
+                </div>};
                 <Form.Item
                     label="Логин"
                     name="username"
