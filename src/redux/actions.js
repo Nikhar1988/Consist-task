@@ -13,17 +13,18 @@ export const AuthActionCreators = {
     login: (username, password) => async (dispatch) => {
         dispatch(AuthActionCreators.setIsLoading(true));
         setTimeout(async () => {
-            const response = await UserService.getUsers().catch(error => {
-                if (error.response) {
-                    dispatch(AuthActionCreators.setError('Произошла ошибка!!!'));
+            try {
+                const response = await UserService.getUsers()
+                const mockUser = response.data.find(user => user.username === username && user.password === password);
+                if (mockUser) {
+                    dispatch(AuthActionCreators.setUser(mockUser));
+                    dispatch(AuthActionCreators.setIsAuth(true));
+                } else {
+                    dispatch(AuthActionCreators.setError('Некорректный логин или пароль'));
                 }
-            });
-            const mockUser = response.data.find(user => user.username === username && user.password === password);
-            if (mockUser) {
-                dispatch(AuthActionCreators.setUser(mockUser));
-                dispatch(AuthActionCreators.setIsAuth(true));
-            } else {
-                dispatch(AuthActionCreators.setError('Некорректный логин или пароль'));
+
+            } catch (err) {
+                dispatch(AuthActionCreators.setError('Извините, сервер недоступен!!!'))
             }
             dispatch(AuthActionCreators.setIsLoading(false));
         }, 1000)
